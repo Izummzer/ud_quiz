@@ -14,7 +14,7 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           # channel: 'dev' 
-          flutter-version: '1.20.5'
+          flutter-version: '2.19.0' # 2.19.0-146.2.beta
           channel: 'beta'
       - run: flutter config --enable-web
       - run: flutter pub get
