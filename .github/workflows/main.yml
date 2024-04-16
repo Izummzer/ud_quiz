@@ -16,8 +16,10 @@ jobs:
           # channel: 'dev' 
           flutter-version: '3.7.0' # 2.19.0-146.2.beta
           channel: 'beta'
+      - run: dart --version
+      - run: flutter --version
       - run: flutter config --enable-web
-      - run: flutter pub get
+      # - run: flutter pub get
       - run: flutter build web --release
       - run: |
           cd build/web
