@@ -19,8 +19,8 @@ jobs:
       - run: dart --version
       - run: flutter --version
       - run: flutter config --enable-web
-      # - run: flutter pub get
-      # - run: flutter build web --release
+      - run: flutter pub get
+      - run: flutter build web --release
       - run: |
           cd build/web
           git init
