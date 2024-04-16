@@ -435,10 +435,10 @@ class _HomeScreenState extends State<HomeScreen> {
     switch (selectedIndex) {
       case 0:
         page = mainPage();
-        // break;
+        break;
       case 1:
         page = favoritesPage();
-        // break;
+        break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
     }
