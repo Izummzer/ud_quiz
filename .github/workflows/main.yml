@@ -16,7 +16,7 @@ jobs:
           # channel: 'dev'
           flutter-version: '3.7.0' # 2.19.0-146.2.beta
           channel: 'beta'
-          # baseHref: /ud_quiz/
+          baseHref: /ud_quiz/
       - run: dart --version
       - run: flutter --version
       - run: flutter config --enable-web
