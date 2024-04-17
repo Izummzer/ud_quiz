@@ -14,6 +14,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final _random = Random();
   final webScraper = WebScraper('https://www.urbandictionary.com');
+  // final webScraper = WebScraper('https://corsproxy.io/?https%3A%2F%2Fwww.urbandictionary.com');
   String? answer_1;  
   String? answer_2;
   String? answer_3;
@@ -88,6 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
     int randomNumberPage = _random.nextInt(925);
     print(randomNumberPage);
     if (await webScraper.loadWebPage('/?page=$randomNumberPage')) {
+    // if (await webScraper.loadWebPage('%2F%3Fpage%3D$randomNumberPage')) {
       setState(() {
         int pageLength = webScraper.getElement('.word.text-denim', ['href']).length;
 
