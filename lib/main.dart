@@ -16,7 +16,7 @@ class MainApp extends StatelessWidget {
     //   create: (context) => AppStates(),
     //   child: 
       MaterialApp(
-        home: const HomeScreen(),
+        home: const Text('TEST FOR WEB'),//HomeScreen(),
         title: 'Urban Dictionary Quiz',
         theme: ThemeData(
             useMaterial3: true,
