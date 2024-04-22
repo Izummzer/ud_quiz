@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:html/parser.dart' as parser; 
-import 'package:http/http.dart' as http; 
+import 'package:web_scraper/web_scraper.dart';
 import 'dart:math';
 
 
@@ -14,6 +13,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
 
   final _random = Random();
+  final webScraper = WebScraper('https://www.urbandictionary.com');
+  // final webScraper = WebScraper('https://corsproxy.io/?https%3A%2F%2Fwww.urbandictionary.com');
   String? answer_1;  
   String? answer_2;
   String? answer_3;
@@ -84,19 +85,13 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-void getWords() async {
+  void getWords() async {
     int randomNumberPage = _random.nextInt(925);
     print(randomNumberPage);
-
-    final response = await http.Client().get(Uri.parse(
-      'https://corsproxy.io/?https%3A%2F%2Fwww.urbandictionary.com/?page=$randomNumberPage',
-          ));
-
-    if (response.statusCode == 200) {
+    if (await webScraper.loadWebPage('/?page=$randomNumberPage')) {
+    // if (await webScraper.loadWebPage('%2F%3Fpage%3D$randomNumberPage')) {
       setState(() {
-        var document = parser.parse(response.body); 
-        // print(document.getElementsByClassName('word text-denim').length);
-        int pageLength = document.getElementsByClassName('word text-denim').length;
+        int pageLength = webScraper.getElement('.word.text-denim', ['href']).length;
 
         var randomPicker = List<int>.generate(pageLength, (i) => i + 1)..shuffle();
 
@@ -107,12 +102,12 @@ void getWords() async {
         print([random1,random2,random3]);
         // print(randomPicker);
 
-        answer_1 = document.getElementsByClassName('word text-denim')[random1].text;
-        description_1 = document.getElementsByClassName('break-words meaning')[random1].text;
-        answer_2 = document.getElementsByClassName('word text-denim')[random2].text;
-        description_2 = document.getElementsByClassName('break-words meaning')[random2].text;
-        answer_3 = document.getElementsByClassName('word text-denim')[random3].text;
-        description_3 = document.getElementsByClassName('break-words meaning')[random3].text;
+        answer_1 = webScraper.getElement('.word.text-denim', ['href'])[random1]['title'];
+        description_1 = webScraper.getElement('.break-words.meaning', ['href', 'title'])[random1]['title'];
+        answer_2 = webScraper.getElement('.word.text-denim', ['href'])[random2]['title'];
+        description_2 = webScraper.getElement('.break-words.meaning', ['href', 'title'])[random2]['title'];
+        answer_3 = webScraper.getElement('.word.text-denim', ['href'])[random3]['title'];
+        description_3 = webScraper.getElement('.break-words.meaning', ['href', 'title'])[random3]['title'];
 
         int randomNumberCorrect = _random.nextInt(3);
 
@@ -133,8 +128,6 @@ void getWords() async {
       });
     }
   }
-
-
 
   void updateShowenDescription (description) {
     setState(() {
